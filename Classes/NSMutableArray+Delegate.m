@@ -24,16 +24,19 @@ static void LSDSwizzleMethod(Class c, SEL original, SEL alternate) {
 
 - (void)lsd_setup
 {
-	Class arrayClass = [self class];
-    
-    LSDSwizzleMethod(arrayClass, @selector(addObject:), @selector(lsd_addObject:));
-    LSDSwizzleMethod(arrayClass, @selector(addObjectsFromArray:), @selector(lsd_addObjectsFromArray:));
-    LSDSwizzleMethod(arrayClass, @selector(insertObject:atIndex:), @selector(lsd_insertObject:atIndex:));
-    LSDSwizzleMethod(arrayClass, @selector(insertObjects:atIndexes:), @selector(lsd_insertObjects:atIndexes:));
-    
-    LSDSwizzleMethod(arrayClass, @selector(removeAllObjects), @selector(lsd_removeAllObjects));
-    LSDSwizzleMethod(arrayClass, @selector(removeObject:), @selector(lsd_removeObject:));
-    LSDSwizzleMethod(arrayClass, @selector(removeObjectAtIndex:), @selector(lsd_removeObjectAtIndex:));
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class arrayClass = [self class];
+        
+        LSDSwizzleMethod(arrayClass, @selector(addObject:), @selector(lsd_addObject:));
+        LSDSwizzleMethod(arrayClass, @selector(addObjectsFromArray:), @selector(lsd_addObjectsFromArray:));
+        LSDSwizzleMethod(arrayClass, @selector(insertObject:atIndex:), @selector(lsd_insertObject:atIndex:));
+        LSDSwizzleMethod(arrayClass, @selector(insertObjects:atIndexes:), @selector(lsd_insertObjects:atIndexes:));
+        
+        LSDSwizzleMethod(arrayClass, @selector(removeAllObjects), @selector(lsd_removeAllObjects));
+        LSDSwizzleMethod(arrayClass, @selector(removeObject:), @selector(lsd_removeObject:));
+        LSDSwizzleMethod(arrayClass, @selector(removeObjectAtIndex:), @selector(lsd_removeObjectAtIndex:));
+    });
 }
 
 #pragma mark - Swizzle methods

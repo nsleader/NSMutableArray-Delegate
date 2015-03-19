@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "NSMutableArray-Delegate"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "NSMutableArray-Delegate is a category that adds patern Delegate for mutable array."
 
 #  s.description  = <<-DESC
